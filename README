@@ -1,6 +1,6 @@
 http://www.getbrickpile.com
 
-Installation
+#Installation
 ------------
 1. Create a fresh ASP.NET MVC 3 Web application
 2. Removed unused packages installed by the project template
@@ -43,3 +43,6 @@ public class Home : PageModel {
 
 11. Navigate to /dashboard and login using your credentials
 12. Click Content and create your default page
+
+#License
+See LICENSE file
