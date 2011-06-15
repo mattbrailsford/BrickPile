@@ -39,6 +39,7 @@ namespace BrickPile.UI.Models {
         /// <value>
         /// The API key.
         /// </value>
+        [Display(Name = "Access key")]
         public string AwsAccessKey { get; set; }
         /// <summary>
         /// Gets or sets the aws secret access key.
@@ -46,6 +47,7 @@ namespace BrickPile.UI.Models {
         /// <value>
         /// The aws secret access key.
         /// </value>
+        [Display(Name = "Secret access key")]
         public string AwsSecretAccessKey { get; set; }
         /// <summary>
         /// Gets or sets the name of the bucket.
@@ -53,6 +55,7 @@ namespace BrickPile.UI.Models {
         /// <value>
         /// The name of the bucket.
         /// </value>
+        [Display(Name = "Bucket name")]
         public string BucketName { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Settings"/> class.

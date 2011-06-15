@@ -161,7 +161,6 @@ namespace BrickPile.UI.Controllers {
         /// <param name="destinationId">The destination id.</param>
         /// <returns></returns>
         public ActionResult Paste(string sourceId, string destinationId) {
-
             dynamic source = _repository.SingleOrDefault<IPageModel>(x => x.Id.Equals(sourceId));
             dynamic destination = _repository.SingleOrDefault<IPageModel>(x => x.Id.Equals(destinationId));
 
@@ -179,7 +178,6 @@ namespace BrickPile.UI.Controllers {
         /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(ConfirmFormModel confirmFormModel, IPageModel model) {
-
             _repository.Delete(model);
             _repository.SaveChanges();
 

@@ -1,5 +1,5 @@
 ﻿/*
-    ImageVault 4 - Global stylesheet
+    BrickPile - Global stylesheet
 
     TABLE OF CONTENTS
     -----------------
@@ -66,12 +66,10 @@
     body {
         font:75%/1.6 Arial, 'Helvetica Neue';
     }
-    body.loaded {
-        
-    }
     /*------------------------------------------------------------------
     2 Forms
     -------------------------------------------------------------------*/
+    input,textarea { font:100%/1.6 Arial, 'Helvetica Neue'; }
     input[type=text],
     input[type=password] {
         /*border:solid 1px #d4d4d4;
@@ -120,6 +118,15 @@
         color:#939494;
         font-style:italic;
     }
+    textarea {
+        
+        border: 1px solid #989898;
+        border-radius: 5px 5px 5px 5px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        color: #424242;
+        padding: 7px;
+        text-shadow: 0 1px 5px #F0F0F0;        
+    }
     
     table {
         border-collapse: separate;
@@ -154,7 +161,7 @@
     /*------------------------------------------------------------------
     4 Anchors
     -------------------------------------------------------------------*/    
-    a {  }
+    a { color:#fff; }
     a:active,
     a:focus,
     a:hover {  }            

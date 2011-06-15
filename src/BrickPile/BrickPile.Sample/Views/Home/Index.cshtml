@@ -1,8 +1,12 @@
 ﻿
-@model BrickPile.Sample.Models.Home
+@model BrickPile.Sample.ViewModels.HomeViewModel
+@using BrickPile.UI.Common
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Html.DisplayFor(x => x.Heading)</h1>
+<div id="push">
+	<a href="@Url.Action("index",new { model = Model.MainTeaser })")>
+        <img src="@Model.CurrentModel.MainTeaser.Image" alt="@Model.CurrentModel.MainTeaser.ImageAlt" />
+    </a>
+</div>

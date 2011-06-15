@@ -1,4 +1,5 @@
 ﻿body,html { height:100%; }
+
 header {
 	border-top:solid 1px #696969;
     border-bottom:solid 1px #686868;
@@ -120,8 +121,8 @@ nav li a.selected {
 div#main {
 	/*background: #f7f8f9 url(/areas/dashboard/content/content-background.png);*/
 	/*background: url(/areas/dashboard/content/darkfade.jpg) no-repeat fixed center top rgb(36, 36, 36);*/
-	/*background: url(/areas/dashboard/content/linen.jpg) no-repeat fixed center top rgb(199, 204, 210);*/
-	background: url(http://my.cl.ly/images/new/body-bg.png) repeat 0 0;
+	background: url(/areas/brickpile.ui/content/linen.jpg) no-repeat fixed center top rgb(199, 204, 210);
+	/*background: url(http://my.cl.ly/images/new/body-bg.png) repeat 0 0;*/
 	/*background: url(http://farm5.static.flickr.com/4092/5052218835_d508d4624e_b.jpg) repeat fixed center top #000;*/
 	/*background: url("/areas/dashboard/content/darkwood.jpg") no-repeat fixed center center #000000;*/
     bottom:0;
@@ -131,7 +132,7 @@ div#main {
     right:0;
     top:52px;
 }
-article h1 {
+#main h1 {
     background: url(/areas/brickpile.ui/content/sprite.png) no-repeat 1.7em -177px, -moz-linear-gradient(top, #F4F4F4, #C2C5C8);
     background: url(/areas/brickpile.ui/content/sprite.png) no-repeat 1.7em -177px, -webkit-gradient(linear, left top, left bottom, from(#F4F4F4), to(#C2C5C8));    
     border-bottom: 1px solid #b4b7ba;
@@ -143,7 +144,7 @@ article h1 {
     text-shadow: 0 1px 0 #fff;
     text-transform:uppercase;
 }
-article form {
+#main form {
     border-top:solid 1px #ddd;
     padding:20px;
 }

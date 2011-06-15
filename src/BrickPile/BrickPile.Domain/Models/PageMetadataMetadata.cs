@@ -26,7 +26,7 @@ namespace BrickPile.Domain.Models {
         /// Get/Sets the Name of the PageMetaData
         /// </summary>
         /// <value></value>
-        [Display(Name = "Name",Order = 10)]
+        [Display(Name = "Page name",Order = 10)]
         [Required(ErrorMessage = "Name_Required")]
         public virtual string Name { get; set; }
         /// <summary>
