@@ -466,7 +466,8 @@
     <Content Include="Scripts\tiny_mce\utils\validate.js" />
     <Content Include="Styles\account.css" />
     <Content Include="Styles\dashboard.css" />
-    <Content Include="Styles\framework.css" />
+    <None Include="Styles\framework.css.bak" />
+    <Content Include="Styles\Framework.css" />
     <Content Include="Styles\global.css" />
     <Content Include="Styles\reset.css" />
     <Content Include="Views\Web.config" />

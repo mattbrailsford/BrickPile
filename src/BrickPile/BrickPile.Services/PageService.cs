@@ -37,15 +37,6 @@ namespace BrickPile.Services {
             return _pageRepository.SingleOrDefault(predicate);
         }
         /// <summary>
-        /// Loads the specified ids.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="ids">The ids.</param>
-        /// <returns></returns>
-        public T[] Load<T>(string[] ids) {
-            return _pageRepository.Load<T>(ids);
-        }
-        /// <summary>
         /// Lists this instance.
         /// </summary>
         /// <typeparam name="T"></typeparam>

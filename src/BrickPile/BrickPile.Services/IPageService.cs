@@ -36,13 +36,6 @@ namespace BrickPile.Services {
         /// <returns></returns>
         T SingleOrDefault<T>(Expression<Func<T, bool>> predicate);
         /// <summary>
-        /// Loads the specified ids.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="ids">The ids.</param>
-        /// <returns></returns>
-        T[] Load<T>(string[] ids);
-        /// <summary>
         /// Lists this instance.
         /// </summary>
         /// <typeparam name="T"></typeparam>
