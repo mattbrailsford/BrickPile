@@ -49,6 +49,23 @@ Dashboard.prototype = {
 };
 
 $(document).ready(function () {
+
+//    $('#navigation ul').nestedSortable({
+//        disableNesting: 'no-nest',
+//        forcePlaceholderSize: true,
+//        handle: 'a',
+//        helper: 'clone',
+//        items: 'li',
+//        maxLevels: 3,
+//        opacity: .6,
+//        placeholder: 'placeholder',
+//        revert: 250,
+//        tabSize: 25,
+//        tolerance: 'pointer',
+//        toleranceElement: '> a'
+//    });     
+    
+
     Dashboard = new Dashboard();
     $('.browse').live('click', function () { Dashboard.browse($(this)); });
     $('.edit').live('click', function () { Dashboard.edit($(this)); });

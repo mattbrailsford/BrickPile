@@ -11,11 +11,14 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/framework.css")" media="all" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/dashboard.css")" media="all" />
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery-1.5.1.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery-ui-1.8.13.custom.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.slugify.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/tiny_mce/tiny_mce.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/pixlr.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/dashboard.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.event.hover.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.ui.nestedSortable.js")"></script>
+    
     <!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -37,18 +40,17 @@
             theme_advanced_statusbar_location: "none",
             extended_valid_elements: "pre[name|class|cols|rows]",
             remove_linebreaks: false,
-            convert_urls: false,
+            convert_urls: false
         });
+        
     </script>
 </head>
 <body class="@ViewBag.Class">
     <header role="banner">
-        <menu type="toolbar">
-            <li>@Html.ActionLink("Dashboard","index","dashboard")</li>
-        </menu>
+        @RenderSection("Toolbar",required:false)
         <strong>@HttpContext.Current.User.Identity.Name @Html.ActionLink("Log Off", "logoff", "account")</strong>
     </header>
-    <nav role="navigation">
+    <nav id="navigation" role="navigation">
         <h1>Main navigation</h1>
         @RenderSection( "GlobalNavigation", required:false )
     </nav>

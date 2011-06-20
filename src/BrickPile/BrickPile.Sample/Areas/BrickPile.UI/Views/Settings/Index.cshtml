@@ -4,6 +4,12 @@
     Layout = "~/Areas/BrickPile.UI/Views/Shared/_Layout.cshtml";
 }
 
+@section Toolbar {
+    <menu type="toolbar">
+        <li>@Html.ActionLink("Dashboard","index","dashboard")</li>
+    </menu>
+}
+
 @section GlobalNavigation {
     <ul class="">
         <li>@Html.ActionLink("Content", "index", "content", null, new { @class = "content" })</li>
@@ -12,7 +18,6 @@
 		<li>@Html.ActionLink("Users", "manageusers", "account", null, new { @class = "users" })</li-->
     </ul>
 }
-
 
 <h1>Preferences</h1>
 

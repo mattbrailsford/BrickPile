@@ -190,9 +190,14 @@
     <Content Include="Content\sprite.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\dashboard.js" />
+    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-ui-1.8.13.custom.min.js" />
     <Content Include="Scripts\jquery.event.hover.js" />
     <Content Include="Scripts\jquery.slugify.js" />
+    <Content Include="Scripts\jquery.ui.nestedSortable.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
