@@ -1,0 +1,51 @@
+﻿
+@model BrickPile.UI.Web.ViewModels.NewPageViewModel
+
+@{
+    Layout = "~/Areas/BrickPile.UI/Views/Shared/_Layout.cshtml";
+}
+
+@section GlobalNavigation {
+    <ul>
+        <li class="dashboard">@Html.ActionLink("Dashboard", "index", "dashboard")</li>
+        <li class="current content">@Html.ActionLink("Content", "index", "content")</li>
+        <li class="settings">@Html.ActionLink("Settings", "index", "settings")</li>
+    </ul>
+}
+
+<nav id="local-nav">
+    <menu id="actions">
+        <button class="action new disabled"></button>
+    </menu>
+    @Html.Partial("_LocalNavigation", Model)
+</nav>
+
+<div id="content">
+    <aside id="toolbar">
+        <menu>
+            <a href="#" class="action inactive">Publish</a>
+            <a href="#" class="action inactive">Drafts</a>
+        </menu>
+    </aside>
+    @Html.ValidationSummary()
+
+    @using (Html.BeginForm("save", "content", new { model = Model.CurrentModel }, FormMethod.Post, new { name = "editForm" }))
+    {
+        <div>
+            @Html.EditorFor(model => model.NewPageModel.Metadata)
+            @Html.EditorFor(model => model.NewPageModel, new { StructureInfo = Model.StructureInfo })
+            @Html.HiddenFor(model => model.NewPageModel.GetType().AssemblyQualifiedName)
+        </div>
+        <input type="submit" value="Save" class="action save" />
+    }
+</div>
+
+
+@section Footer {
+    <footer>
+        <menu type="toolbar">
+            <button class="actions"></button>
+            <button class="sort"></button>
+        </menu>   
+    </footer>
+}

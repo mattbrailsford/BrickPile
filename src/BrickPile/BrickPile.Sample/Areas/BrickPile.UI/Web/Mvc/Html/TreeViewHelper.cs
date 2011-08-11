@@ -36,8 +36,8 @@ namespace BrickPile.UI.Web.Mvc.Html {
                 return string.Empty;
 
             var sb = new StringBuilder();
-            sb.AppendLine("<ul>");
-            RenderLi(sb, (T)structureInfo.RootModel, structureInfo.RootModel.Equals(currentItem) ? selectedItemContent : itemContent);
+            sb.AppendLine("<ul class=\"sortable\">");
+            RenderLi(sb, (T)structureInfo.RootModel, structureInfo.RootModel.Equals(currentItem) ? selectedItemContent : itemContent,false);
 
             var items = structureInfo.HierarchicalStructure.Where(x => x.Depth == 1);
 
@@ -49,7 +49,7 @@ namespace BrickPile.UI.Web.Mvc.Html {
             sb.AppendLine("<ul>");
             foreach (var item in items)
             {
-                RenderLi(sb, (T) item.Entity, item.Entity.Equals(currentItem) ? selectedItemContent : itemContent);
+                RenderLi(sb, (T) item.Entity, item.Entity.Equals(currentItem) ? selectedItemContent : itemContent,false);
                 AppendChildrenRecursive(sb, currentItem, item, x => x.ChildNodes, itemContent, selectedItemContent);
             }
             sb.AppendLine("</ul></li>");
@@ -70,17 +70,21 @@ namespace BrickPile.UI.Web.Mvc.Html {
 
             sb.AppendLine("<ul>");
 
-            foreach (var item in children.OrderBy(x => x.Entity.Id))
+            foreach (var item in children)
             {
-                RenderLi(sb, (T)item.Entity, item.Entity.Id.Equals(currentItem.Id) ? selectedItemContent : itemContent);
+                RenderLi(sb, (T)item.Entity, item.Entity.Id.Equals(currentItem.Id) ? selectedItemContent : itemContent,false);
                 AppendChildrenRecursive(sb, currentItem, item, childrenProperty, itemContent, selectedItemContent);
             }
 
             sb.AppendLine("</ul></li>");
         }
 
-        private static void RenderLi<T>(StringBuilder sb, T item, Func<T, MvcHtmlString> itemContent) {
-            sb.AppendFormat("<li data-item-id=\"{0}\">{1}", ((IPageModel)item).Id, itemContent(item));
+        private static void RenderLi<T>(StringBuilder sb, T item, Func<T, MvcHtmlString> itemContent, bool disableNesting) {
+            if(disableNesting) {
+                sb.AppendFormat("<li class=\"no-nest\" id=\"pages_{0}\">{1}", ((IPageModel)item).Id.Remove(0, 6), itemContent(item));
+            } else {
+                sb.AppendFormat("<li id=\"pages_{0}\">{1}", ((IPageModel)item).Id.Remove(0,6), itemContent(item));
+            }
         }        
     }
 }

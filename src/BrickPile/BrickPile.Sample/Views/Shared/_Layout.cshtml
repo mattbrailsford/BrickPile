@@ -1,16 +1,20 @@
 ﻿
-@model BrickPile.Sample.ViewModels.IBaseViewModel<BrickPile.Sample.Models.BasePageModel>
+@*model BrickPile.Sample.ViewModels.IBaseViewModel<BrickPile.Sample.Models.BaseModel>*@
+
+@model BrickPile.UI.Web.ViewModels.IViewModel<BrickPile.Domain.Models.IPageModel>
+           
 @using System.Globalization;
 @using SquishIt.Framework;
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentCulture.TwoLetterISOLanguageName">
 	<head>
-		<title>@Model.Title</title>
+		<title>@*Model.Title*@</title>
 		<meta charset="utf-8" />
         @Html.Raw(Bundle.Css()
             .Add(Url.Content("~/styles/global.css"))
             .Add(Url.Content("~/styles/framework.css"))
             .Add(Url.Content("~/styles/templates.css"))
+            .Add(Url.Content("~/content/pagedlist.css"))
             .Render("~/styles/master.css"))
         @Html.Raw(Bundle.JavaScript()
             .Add(Url.Content("~/scripts/lib/jquery-1.4.4.js"))
@@ -29,7 +33,7 @@
             <link rel="stylesheet" href="@Url.Content("~/styles/legacy/ie8.css")" media="screen,projection" />
         <![endif]-->
 	</head>
-	<body class="@Model.Class">
+	<body class="@*Model.Class*@">
 		<header> 
             @if (!IsSectionDefined("Logotype")) {
                 <a href="@Url.Action("index", new { model = Model.StructureInfo.RootModel })" title="Till webbplatsens startsida"><img src="/images/logotype.png" alt="Burro"></a>

@@ -19,11 +19,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. */
 
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BrickPile.Core.Exception;
 using BrickPile.Core.Repositories;
 using BrickPile.Domain.Models;
+using BrickPile.UI.Common;
 using BrickPile.UI.Models;
 using BrickPile.UI.Web.ViewModels;
 
@@ -50,6 +52,7 @@ namespace BrickPile.UI.Controllers {
         /// <param name="model">The model.</param>
         /// <returns></returns>
         public ActionResult Edit(dynamic model) {
+            ViewBag.Class = "content";
             var viewModel = new DashboardViewModel(model, _structureInfo);
             return View(viewModel);
         }
@@ -62,7 +65,7 @@ namespace BrickPile.UI.Controllers {
         [HttpPost]
         [ValidateInput(false)]
         public virtual ActionResult Update(dynamic editorModel, dynamic model) {
-            
+
             if (!TryUpdateModel(model, "CurrentModel")) {
                 return View("edit", new DashboardViewModel(model, _structureInfo));
             }
@@ -93,7 +96,8 @@ namespace BrickPile.UI.Controllers {
         /// <param name="newPageModel">The new page model.</param>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public ActionResult Create(CreateNewModel newPageModel, dynamic model) {
+        public ActionResult New(CreateNewModel newPageModel, dynamic model) {
+
             var parent = model as IPageModel;
             if(parent == null) {
                 throw new BrickPileException("The injected model is not a PageModel");
@@ -102,23 +106,52 @@ namespace BrickPile.UI.Controllers {
             if (ModelState.IsValid) {
                 // create a new page from the selected page model
                 var page = Activator.CreateInstance(Type.GetType(newPageModel.SelectedPageModel)) as IPageModel;
-                // handle this gracefully in the future :)
+                if (page == null) {
+                    throw new BrickPileException("The selected page model is not valid!");
+                }
+                page.Metadata.Url = VirtualPathUtility.AppendTrailingSlash(parent.Metadata.Url);
+
+                ViewBag.Class = "content";
+                return View("new", new NewPageViewModel { NewPageModel = page ,CurrentModel = parent, StructureInfo = _structureInfo });
+            }
+
+            return PartialView("add", newPageModel);
+        }
+        /// <summary>
+        /// Saves the specified new page model.
+        /// </summary>
+        /// <param name="newPageModel">The new page model.</param>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateInput(false)]
+        public virtual ActionResult Save(dynamic newPageModel, dynamic model) {
+
+            var parent = model as IPageModel;
+            if (parent == null) {
+                throw new BrickPileException("The injected model is not a PageModel");
+            }
+
+            if(ModelState.IsValid) {
+                // create a new page from the new model
+                var page = Activator.CreateInstance(Type.GetType(Request.Form["AssemblyQualifiedName"])) as IPageModel;
+
                 if (page == null) {
                     throw new BrickPileException("The selected page model is not valid!");
                 }
 
+                // Update all values
+                UpdateModel(page, "NewPageModel");
+                // Set the parent
                 page.Parent = model;
-                page.Metadata.Name = newPageModel.Name;
-                page.Metadata.Slug = newPageModel.Slug;
-                page.Metadata.Url = newPageModel.Url;
-
+                // Add page to repository and save changes
                 _repository.Store(page);
                 _repository.SaveChanges();
-                _repository.Refresh(page);
 
-                return RedirectToAction("edit", new { model = page });
+                return RedirectToAction("edit", new { model = page });                
             }
-            return PartialView("add", newPageModel);
+
+            return null;
         }
         /// <summary>
         /// Creates the default.
@@ -186,6 +219,29 @@ namespace BrickPile.UI.Controllers {
                 return RedirectToAction("edit", new { model = parent });
             }
             return RedirectToAction("index");            
+        }
+        /// <summary>
+        /// Sorts this instance.
+        /// </summary>
+        public void Sort() {
+            // Load all pages from the keys
+            var ids = Request.QueryString.AllKeys.Select(key => key.Replace("[", "/").Replace("]", "")).ToArray();
+
+            var documents = _repository.Load<IPageModel>(ids);
+            // Make a dictionary
+            var dictionary = Request.QueryString.ToDictionary();
+            var grouped = dictionary.GroupBy(x => x.Value);
+            foreach (var pairs in grouped) {
+                var order = 1;
+                foreach (var page in pairs.Select(pair => documents.Single(x => x.Id == pair.Key.Replace("[", "/").Replace("]", "")))) {
+                    page.Metadata.SortOrder = order;
+                    if(pairs.Key != "root") {
+                        page.Parent = (dynamic) documents.Single(x => x.Id == "pages/" + pairs.Key);
+                    }
+                    order++;
+                }
+            }
+            _repository.SaveChanges();
         }
         /// <summary>
         /// Initializes a new instance of the <b>PagesController</b> class.

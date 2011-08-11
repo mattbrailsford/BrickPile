@@ -1,28 +1,41 @@
-﻿using BrickPile.Sample.Models;
+using BrickPile.Sample.Models;
+using BrickPile.Services;
 using BrickPile.UI;
 
 namespace BrickPile.Sample.ViewModels {
     public class HomeViewModel : BaseViewModel<Home> {
-        /// <summary>
-        /// Gets the class.
-        /// </summary>
-        public override string Class {
-            get { return "home"; }
-        }
-        /// <summary>
-        /// Gets or sets the main teaser.
-        /// </summary>
-        /// <value>
-        /// The main teaser.
-        /// </value>
-        public BasePageModel MainTeaser { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HomeViewModel"/> class.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <param name="structureInfo">The structure info.</param>
-        public HomeViewModel(Home model, IStructureInfo structureInfo) : base(model, structureInfo) {
+        private readonly Home _model;
+        private readonly IPageService _pageService;
 
+        public HomeViewModel(Home model, IPageService pageService, IStructureInfo structureInfo) : base(model, structureInfo) {
+            _model = model;
+            _pageService = pageService;
         }
+
+        //public BaseModel MainTeaser {
+        //    get {
+        //        return _pageService.SingleOrDefault<BaseModel>(x => x.Id == _model.MainTeaserLink.Id);
+        //    }
+        //}
+        //public BaseEditorial TeaserOne {
+        //    get {
+        //        return _pageService.SingleOrDefault<BaseEditorial>(x => x.Id == _model.TeaserOne.Id);
+        //    }
+        //}
+        //public BaseEditorial TeaserTwo {
+        //    get {
+        //        return _pageService.SingleOrDefault<BaseEditorial>(x => x.Id == _model.TeaserTwo.Id);
+        //    }
+        //}
+        //public BaseEditorial TeaserThree {
+        //    get {
+        //        return _pageService.SingleOrDefault<BaseEditorial>(x => x.Id == _model.TeaserThree.Id);
+        //    }
+        //}
+        //public BaseEditorial TeaserFour {
+        //    get {
+        //        return _pageService.SingleOrDefault<BaseEditorial>(x => x.Id == _model.TeaserFour.Id);
+        //    }
+        //}
     }
 }

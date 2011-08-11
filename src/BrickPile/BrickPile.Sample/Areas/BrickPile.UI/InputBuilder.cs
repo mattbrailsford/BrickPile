@@ -73,6 +73,10 @@ namespace System.Web.Mvc
             return Build("datetime");
         }
 
+        public virtual IHtmlString InputDateTimeLocal() {
+            return Build("datetime-local");
+        }
+
         private IHtmlString Build(string type)
         {
             var viewData = htmlHelper.ViewData;

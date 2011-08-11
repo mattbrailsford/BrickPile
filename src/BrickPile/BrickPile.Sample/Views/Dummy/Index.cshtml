@@ -1,0 +1,16 @@
+﻿@model BrickPile.UI.Web.ViewModels.DefaultViewModel<BrickPile.Sample.Models.Dummy>
+@using PagedList.Mvc           
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Pages</h2>
+<ul>
+    @foreach (var product in ViewBag.OnePageOfPages) {
+        <li>@product.Metadata.Name</li>
+    }
+</ul>
+
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+@Html.PagedListPager((PagedList.IPagedList)ViewBag.OnePageOfPages, page => Url.Action("index", new { model = Model.CurrentModel, page = page }), PagedListRenderOptions.PageNumbersOnly)

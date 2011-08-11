@@ -1,0 +1,28 @@
+﻿
+@model BrickPile.UI.Web.ViewModels.DefaultViewModel<BrickPile.Sample.Models.NewsList>
+@using PagedList.Mvc
+@using BrickPile.UI.Common
+@using BrickPile.Domain.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Pages</h2>
+<ul>
+    @foreach (var page in ViewBag.OnePageOfPages) {
+        <li>@Html.ActionLink((IPageModel)page)</li>
+    }
+</ul>
+
+@Html.ActionLink("Fudge","index", new { model = Model.CurrentModel })
+
+@Html.ActionLink(Model.CurrentModel)
+
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+@Html.PagedListPager((PagedList.IPagedList)ViewBag.OnePageOfPages, page => Url.Action("index", new { model = Model.CurrentModel, page = page }), PagedListRenderOptions.PageNumbersOnly)
+
+@using (Html.BeginForm("send", "contact", new { model = Model.CurrentModel })) {
+    @Html.Label("Message")
+    @Html.TextArea("Message")
+    <input type="submit" value="Save" class="action save" />
+}

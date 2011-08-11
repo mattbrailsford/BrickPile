@@ -1,45 +1,59 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using BrickPile.Domain;
+using BrickPile.UI.Models;
 
 namespace BrickPile.Sample.Models {
-    /// <summary>
-    /// Represents the home page
-    /// </summary>
-    [PageModel("Home page")]
-    public class Home : BasePageModel {
-        [Display(Name = "Settings for main teaser")]
-        public MainTeaser MainTeaser { get; set; }
-        /// <summary>
-        /// Gets or sets the teaser one.
-        /// </summary>
-        /// <value>
-        /// The teaser one.
-        /// </value>
-        [Display(Name = "Settings for teaser one")]
-        public Teaser TeaserOne { get; set; }
-        /// <summary>
-        /// Gets or sets the teaser two.
-        /// </summary>
-        /// <value>
-        /// The teaser two.
-        /// </value>
-        [Display(Name = "Settings for teaser two")]
-        public Teaser TeaserTwo { get; set; }
-        /// <summary>
-        /// Gets or sets the teaser three.
-        /// </summary>
-        /// <value>
-        /// The teaser three.
-        /// </value>
-        [Display(Name = "Settings for teaser three")]
-        public Teaser TeaserThree { get; set; }
-        /// <summary>
-        /// Gets or sets the teaser four.
-        /// </summary>
-        /// <value>
-        /// The teaser four.
-        /// </value>
-        [Display(Name = "Settings for teaser four")]
-        public Teaser TeaserFour { get; set; }
+    [PageModel("Startpage")]
+    public class Home : BaseModel {
+        
+        //[Required]
+        //[Display(Name = "Teaser 1")]
+        //public virtual PageReference TeaserOne { get; set; }
+        //[Required]
+        //[DataType(DataType.ImageUrl)]
+        //public virtual string TeaserOneImage { get; set; }
+        //[Required]
+        //[DataType(DataType.Text)]
+        //public virtual string TeaserOneHeading { get; set; }
+
+        //[Required]
+        //[Display(Name = "Teaser 2")]
+        //public virtual PageReference TeaserTwo { get; set; }
+        //[Required]
+        //[DataType(DataType.ImageUrl)]
+        //public virtual string TeaserTwoImage { get; set; }
+        //[Required]
+        //[DataType(DataType.Text)]
+        //public virtual string TeaserTwoHeading { get; set; }
+
+        //[Required]
+        //[Display(Name = "Teaser 3")]
+        //public virtual PageReference TeaserThree { get; set; }
+        //[Required]
+        //[DataType(DataType.ImageUrl)]
+        //public virtual string TeaserThreeImage { get; set; }
+        //[Required]
+        //[DataType(DataType.Text)]
+        //public virtual string TeaserThreeHeading { get; set; }
+
+        //[Required]
+        //[Display(Name = "Teaser 4")]
+        //public virtual PageReference TeaserFour { get; set; }
+        //[Required]
+        //[DataType(DataType.ImageUrl)]
+        //public virtual string TeaserFourImage { get; set; }
+        //[Required]
+        //[DataType(DataType.Text)]
+        //public virtual string TeaserFourHeading { get; set; }
+        
+        //[Required]
+        //[DataType(DataType.ImageUrl)]
+        //public string MainTeaserImage { get; set; }
+        //[Required]
+        //[DataType(DataType.Text)]
+        //public string MainTeaserImageAlt { get; set; }
+
+        //[Required]
+        public virtual PageReference MainTeaserLink { get; set; }
     }
 }

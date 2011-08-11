@@ -33,7 +33,7 @@ namespace BrickPile.UI.Controllers {
         /// </summary>
         /// <returns></returns>
         public ActionResult Index() {
-            ViewBag.Class = "dashboard";
+            ViewBag.Class = "settings";
             var model = _session.Load<Settings>("brickpile/settings");
             return View(model);
         }

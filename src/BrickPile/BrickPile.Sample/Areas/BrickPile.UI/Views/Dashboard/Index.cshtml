@@ -5,13 +5,10 @@
 }
 
 @section GlobalNavigation {
-    <ul class="">
-        <li>@Html.ActionLink("Content", "index", "content", null, new { @class = "content" })</li>
-        <li>@Html.ActionLink("Preferences", "index", "settings", null, new { @class = "preferences" })</li>
-        <!--li>@Html.ActionLink("Library", "index", "library", null, new { @class = "library" })</li>
-		<li>@Html.ActionLink("Users", "manageusers", "account", null, new { @class = "users" })</li-->
+    <ul>
+        <li class="current dashboard">@Html.ActionLink("Dashboard", "index", "dashboard")</li>
+        <li class="content">@Html.ActionLink("Content", "index", "content")</li>
+        <li class="settings">@Html.ActionLink("Settings", "index", "settings")</li>
     </ul>
 }
-
-<h1>Overview</h1>
 

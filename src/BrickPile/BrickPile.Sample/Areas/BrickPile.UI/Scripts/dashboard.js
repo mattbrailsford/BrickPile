@@ -7,94 +7,178 @@ Dashboard.prototype = {
         //map external functions
         $.extend(this, config);
     },
-    browse: function ($anchor) {
+//    browse: function ($anchor) {
+//        var self = this;
+//        $.ajax({
+//            url: '/dashboard/library/openbucket/',
+//            dataType: 'html',
+//            success: function (data) {
+//                $('body').append(data);
+//                var $dialog = $('div.overlay aside');
+//                $dialog.click(function (event) {
+//                    event.stopPropagation();
+//                });
+//                var $overlay = $('div.overlay');
+//                $('body').click(function () {
+//                    $overlay.fadeOut('fast', function () {
+//                        $overlay.remove();
+//                    });
+//                });
+//                $dialog.find('a.close').click(function () {
+//                    $overlay.fadeOut('fast', function () {
+//                        $overlay.remove();
+//                    });
+//                    return false;
+//                });
+//                $('div.overlay aside tr').click(function (event) {
+//                    $('div.overlay aside tr').removeClass('selected');
+//                    $(this).toggleClass('selected');
+//                });
+//                $('div.overlay aside td .insert').click(function () {
+//                    $anchor.parent().parent().parent().find('input:hidden').val($(this).attr('data-val'));
+//                    $('div.overlay').remove();
+//                    $anchor.parent().parent().find('img').attr('src', $(this).attr('data-val'));
+//                    return false;
+//                });
+//            }
+//        });
+//    },
+//    edit: function ($anchor) {
+//        pixlr.overlay.show({ image: $anchor.parent().parent().find('img').attr('src'), referrer: 'BrickPile CMS', service: 'editor', target: 'http://erie.kloojed.com:81/dashboard/library/save', exit: 'http://erie.kloojed.com:81/dashboard/library/save' });
+//    },
+    add: function ($anchor) {
         var self = this;
         $.ajax({
-            url: '/dashboard/library/openbucket/',
+            url: $anchor.attr('data-val-href'),
             dataType: 'html',
             success: function (data) {
                 $('body').append(data);
-                var $dialog = $('div.overlay aside');
+//                $('select').selectBox();
+                var $dialog = $('.overlay');
                 $dialog.click(function (event) {
                     event.stopPropagation();
                 });
-                var $overlay = $('div.overlay');
+//                var $dropdown = $('.selectBox-dropdown-menu');
+//                $dropdown.click(function (event) {
+//                    event.stopPropagation();
+//                });
+                var $overlay = $('.overlay');
                 $('body').click(function () {
                     $overlay.fadeOut('fast', function () {
                         $overlay.remove();
+//                        $dropdown.remove();
                     });
                 });
                 $dialog.find('a.close').click(function () {
                     $overlay.fadeOut('fast', function () {
                         $overlay.remove();
+//                        $dropdown.remove();
                     });
                     return false;
                 });
-                $('div.overlay aside tr').click(function (event) {
-                    $('div.overlay aside tr').removeClass('selected');
-                    $(this).toggleClass('selected');
-                });
-                $('div.overlay aside td .insert').click(function () {
-                    $anchor.parent().parent().parent().find('input:hidden').val($(this).attr('data-val'));
-                    $('div.overlay').remove();
-                    $anchor.parent().parent().find('img').attr('src', $(this).attr('data-val'));
-                    return false;
+                var url = $("#Url").val();
+                $('.slug').slugify('#Name', {
+                    slugFunc: function (str, originalFunc) {
+                        $("#Url").val(url + accentsTidy(str));
+                        return accentsTidy(str);
+                    }
                 });
             }
         });
-    },
-    edit: function ($anchor) {
-        pixlr.overlay.show({ image: $anchor.parent().parent().find('img').attr('src'), referrer: 'BrickPile CMS', service: 'editor', target: 'http://erie.kloojed.com:81/dashboard/library/save', exit: 'http://erie.kloojed.com:81/dashboard/library/save' });
+        $(this).fadeOut('fast');
+        return false;
     }
 };
 
 $(document).ready(function () {
 
-//    $('#navigation ul').nestedSortable({
-//        disableNesting: 'no-nest',
-//        forcePlaceholderSize: true,
-//        handle: 'a',
-//        helper: 'clone',
-//        items: 'li',
-//        maxLevels: 3,
-//        opacity: .6,
-//        placeholder: 'placeholder',
-//        revert: 250,
-//        tabSize: 25,
-//        tolerance: 'pointer',
-//        toleranceElement: '> a'
-//    });     
-    
+    var url = $("#NewPageModel_Metadata_Url").val();
+
+    $('.slug').slugify('#NewPageModel_Metadata_Name', {
+        slugFunc: function (str, originalFunc) {
+            $("#NewPageModel_Metadata_Url").val(url + accentsTidy(str));
+            return accentsTidy(str);
+        }
+    });
+
+//    $('.slug').slugify('#CurrentModel_Metadata_Name', {
+//        slugFunc: function (str, originalFunc) {
+//            $("#CurrentModel_Metadata_Slug").val(accentsTidy(str));
+//            return accentsTidy(str);
+//        }
+//    });
+
+
+        $('button.sort').click(function () {
+            $('nav a').each(function (index) {
+                //$(this).bind('click', function () { return false; });
+                $(this).unbind('hover');
+            });
+            $('ul.sortable').nestedSortable({
+                listType: 'ul',
+                disableNesting: 'no-nest',
+                forcePlaceholderSize: true,
+                handle: 'a',
+                helper: 'clone',
+                items: 'li',
+                opacity: .6,
+                placeholder: 'placeholder',
+                revert: 150,
+                tabSize: 25,
+                delay: 500,
+                forceHelperSize: true,
+                tolerance: 'intersect',
+                toleranceElement: '> a',
+                stop: function (event, ui) {
+                    serialized = $('ul.sortable').nestedSortable('serialize');
+                    $('#serializeOutput').text(serialized + '\n\n');
+                    $.ajax({
+                        type: 'GET',
+                        url: '/dashboard/content/sort',
+                        data: serialized,
+                        success: function (data) { }
+                    });
+                }
+            });
+        });
+
+
+
+    //    $('#serialize').click(function () {
+    //        serialized = $('ul.sortable').nestedSortable('serialize');
+    //        $('#serializeOutput').text(serialized + '\n\n');
+    //    })
 
     Dashboard = new Dashboard();
-    $('.browse').live('click', function () { Dashboard.browse($(this)); });
-    $('.edit').live('click', function () { Dashboard.edit($(this)); });
+    //$('.browse').live('click', function () { Dashboard.browse($(this)); });
+    //$('.edit').live('click', function () { Dashboard.edit($(this)); });
+    $('button.new').live('click', function () { Dashboard.add($(this)); });
 
     // set default hover delay to 500
     $.event.special.hover.delay = 500;
 
-    $('nav ul a span.cut').each(function () {
-        $(this).click(function () {
-            localStorage.setItem('cut', $(this).closest('li').attr('data-item-id'));
-            return false;
-        });
-    });
+    //    $('nav ul a span.cut').each(function () {
+    //        $(this).click(function () {
+    //            localStorage.setItem('cut', $(this).closest('li').attr('data-item-id'));
+    //            return false;
+    //        });
+    //    });
 
-    $('nav ul a span.paste').each(function () {
-        $(this).click(function () {
-            var $action = $(this);
-            $.ajax({
-                type: 'POST',
-                url: '/dashboard/content/paste',
-                data: 'sourceId=' + localStorage.getItem('cut') + '&destinationId=' + $(this).closest('li').attr('data-item-id') + '',
-                success: function (data) {
-                    window.location = $action.attr('data-val');
-                }
-            });
-            $(this).fadeOut('fast');
-            return false;
-        });
-    });
+    //    $('nav ul a span.paste').each(function () {
+    //        $(this).click(function () {
+    //            var $action = $(this);
+    //            $.ajax({
+    //                type: 'POST',
+    //                url: '/dashboard/content/paste',
+    //                data: 'sourceId=' + localStorage.getItem('cut') + '&destinationId=' + $(this).closest('li').attr('data-item-id') + '',
+    //                success: function (data) {
+    //                    window.location = $action.attr('data-val');
+    //                }
+    //            });
+    //            $(this).fadeOut('fast');
+    //            return false;
+    //        });
+    //    });
 
     $('nav ul a span.delete').each(function () {
         $(this).click(function () {
@@ -161,11 +245,11 @@ $(document).ready(function () {
         });
     });
 
-    $('nav ul a').hover(function (e) {
-        $(this).children('span').show();
-    }, function (e) {
-        $(this).children('span').fadeOut('fast');
-    });
+//    $('nav ul a').hover(function (e) {
+//        $(this).children('span').show();
+//    }, function (e) {
+//        $(this).children('span').fadeOut('fast');
+//    });
 
 });
 
@@ -185,8 +269,4 @@ accentsTidy = function (s) {
     r = r.replace(new RegExp("\\W", 'g'), "-");
     r = r.replace(new RegExp("-+", 'g'), "-");
     return r;
-};
-
-cut = function () {
-    
 };

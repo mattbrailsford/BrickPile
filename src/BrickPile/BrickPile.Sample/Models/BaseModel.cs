@@ -1,18 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using BrickPile.Domain.Models;
+﻿using BrickPile.Domain.Models;
 
 namespace BrickPile.Sample.Models {
     /// <summary>
-    /// Represents the base page
+    /// Abstract base model used as a default template for all page models
     /// </summary>
-    public abstract class BasePageModel : PageModel {
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
-        [Display(Name = "Page title", Order = 20)]
+    public abstract class BaseModel : PageModel {
         public virtual string Title { get; set; }
     }
 }

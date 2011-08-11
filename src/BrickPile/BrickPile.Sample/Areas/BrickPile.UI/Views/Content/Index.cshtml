@@ -3,7 +3,13 @@
 @{
     ViewBag.Title = "BrickPile - Edit";
     Layout = "~/Areas/BrickPile.UI/Views/Shared/_Layout.cshtml";
-
+}
+@section GlobalNavigation {
+    <ul>
+        <li class="dashboard">@Html.ActionLink("Dashboard", "index", "dashboard")</li>
+        <li class="current content">@Html.ActionLink("Content", "index", "content")</li>
+        <li class="settings">@Html.ActionLink("Settings", "index", "settings")</li>
+    </ul>
 }
 <h1>Create your first page</h1>
 <div class="overlay">

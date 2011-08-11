@@ -7,9 +7,7 @@
     } else {
         <div class="editor-label">
             @if(prop.IsRequired) {
-                @*Html.Label(prop.PropertyName)*@
-                var displayName = prop.DisplayName;
-                @Html.LabelFor(_ => ViewData.Model, @<em>(mandatory)</em>, displayName)
+                @Html.Label(prop.PropertyName, @<em>(mandatory)</em>)
             } else {
                 @Html.Label(prop.PropertyName)
             }

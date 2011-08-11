@@ -7,14 +7,19 @@
     <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta name="description" content="" />
+
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/global.css")" media="all" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/framework.css")" media="all" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/dashboard.css")" media="all" />
-    <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery-1.5.1.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/views.css")" media="all" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/areas/brickpile.ui/styles/jquery.selectBox.css")" media="all" />
+
+    <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery-1.6.2.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery-ui-1.8.13.custom.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.slugify.js")"></script>
+    <!--script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.selectBox.min.js")"></script-->
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/tiny_mce/tiny_mce.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/pixlr.js")"></script>
+    <!--script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/pixlr.js")"></script-->
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/dashboard.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.event.hover.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/areas/brickpile.ui/scripts/jquery.ui.nestedSortable.js")"></script>
@@ -22,6 +27,7 @@
     <!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
     <script type="text/javascript">
         tinyMCE.init({
             mode: "textareas",
@@ -42,23 +48,18 @@
             remove_linebreaks: false,
             convert_urls: false
         });
-        
     </script>
 </head>
 <body class="@ViewBag.Class">
-    <header role="banner">
-        @RenderSection("Toolbar",required:false)
-        <strong>@HttpContext.Current.User.Identity.Name @Html.ActionLink("Log Off", "logoff", "account")</strong>
+    <header>
+        <nav id="global-nav" role="navigation">
+            @RenderSection( "GlobalNavigation", required:true )
+        </nav>
+        @RenderSection("Actions", required:false)
     </header>
-    <nav id="navigation" role="navigation">
-        <h1>Main navigation</h1>
-        @RenderSection( "GlobalNavigation", required:false )
-    </nav>
     <div id="main">
         @RenderBody()
     </div>
-    <footer>
-        @RenderSection( "Footer", required:false )
-    </footer>
+    @RenderSection( "Footer", required:false )
 </body>
 </html>

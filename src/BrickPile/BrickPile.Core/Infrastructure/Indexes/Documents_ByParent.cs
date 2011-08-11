@@ -31,7 +31,7 @@ namespace BrickPile.Core.Infrastructure.Indexes {
     public class Documents_ByParent :  AbstractIndexCreationTask<IPageModel> {
         public Documents_ByParent() {
             Map = documents => from document in documents
-                               select new {document.Parent.Id};
+                               select new {document.Parent.Id, document.Metadata.SortOrder };
         }
     }
 }

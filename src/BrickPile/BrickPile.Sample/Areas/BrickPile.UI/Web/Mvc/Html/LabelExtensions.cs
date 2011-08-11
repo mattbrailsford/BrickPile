@@ -20,29 +20,65 @@ THE SOFTWARE. */
 
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.WebPages;
 
 namespace BrickPile.UI.Web.Mvc.Html {
     public static class LabelExtensions {
-        public static MvcHtmlString LabelFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> ex, Func<object, HelperResult> template, string labelText = null) {
-            var htmlFieldName = ExpressionHelper.GetExpressionText(ex);
-            var metadata = htmlHelper.ViewData.ModelMetadata;
+        /// <summary>
+        /// Labels the specified HTML.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="template">The template.</param>
+        /// <returns></returns>
+        public static MvcHtmlString Label(this HtmlHelper html, string expression, Func<object, HelperResult> template) {
+            return Label(html, expression, null, template);
+        }
+        /// <summary>
+        /// Labels the specified HTML.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="labelText">The label text.</param>
+        /// <param name="template">The template.</param>
+        /// <returns></returns>
+        public static MvcHtmlString Label(this HtmlHelper html, string expression, string labelText, Func<object, HelperResult> template) {
+            return LabelHelper(html, ModelMetadata.FromStringExpression(expression, html.ViewData), expression, template, labelText);
+        }
+        /// <summary>
+        /// Labels the helper.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="htmlFieldName">Name of the HTML field.</param>
+        /// <param name="template">The template.</param>
+        /// <param name="labelText">The label text.</param>
+        /// <returns></returns>
+        internal static MvcHtmlString LabelHelper(HtmlHelper html, ModelMetadata metadata, string htmlFieldName, Func<object, HelperResult> template, string labelText = null) {
             string resolvedLabelText = labelText ?? metadata.DisplayName ?? metadata.PropertyName ?? htmlFieldName.Split('.').Last();
             if (String.IsNullOrEmpty(resolvedLabelText)) {
                 return MvcHtmlString.Empty;
             }
 
-            var tag = new TagBuilder("label");
-            tag.Attributes.Add("for", TagBuilder.CreateSanitizedId(htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
+            TagBuilder tag = new TagBuilder("label");
+            tag.Attributes.Add("for", TagBuilder.CreateSanitizedId(html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
             tag.InnerHtml = string.Format(
                 "{0} {1}",
                 resolvedLabelText,
                 template(null).ToHtmlString()
             );
-            return MvcHtmlString.Create(tag.ToString());
-
+            return tag.ToMvcHtmlString(TagRenderMode.Normal);
+        }
+        /// <summary>
+        /// Toes the MVC HTML string.
+        /// </summary>
+        /// <param name="tagBuilder">The tag builder.</param>
+        /// <param name="renderMode">The render mode.</param>
+        /// <returns></returns>
+        private static MvcHtmlString ToMvcHtmlString(this TagBuilder tagBuilder, TagRenderMode renderMode)
+        {
+            return new MvcHtmlString(tagBuilder.ToString(renderMode));
         }
     }
 } 

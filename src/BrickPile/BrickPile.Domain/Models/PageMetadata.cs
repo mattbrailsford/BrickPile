@@ -18,6 +18,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. */
 
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BrickPile.Domain.Models {
@@ -34,6 +35,13 @@ namespace BrickPile.Domain.Models {
         /// <value></value>
         public virtual string Name { get; set; }
         /// <summary>
+        /// Gets or sets the start publish.
+        /// </summary>
+        /// <value>
+        /// The start publish.
+        /// </value>
+        public virtual DateTime? StartPublish { get; set; }
+        /// <summary>
         /// Get/Sets the Slug of the PageMetaData
         /// </summary>
         /// <value></value>
@@ -45,5 +53,12 @@ namespace BrickPile.Domain.Models {
         /// The URL.
         /// </value>
         public string Url { get; set; }
+        /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
+        /// <value>
+        /// The sort order.
+        /// </value>
+        public int SortOrder { get; set; }
     }
 }

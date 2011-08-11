@@ -50,10 +50,7 @@ namespace BrickPile.UI {
         /// </summary>
         public virtual IPageModel CurrentModel {
             get {
-                return _currentModel ??
-                       (_currentModel =
-                        ((MvcHandler) HttpContext.Current.Handler).RequestContext.RouteData.GetCurrentModel<IPageModel>() ??
-                        RootModel);
+                return _currentModel ?? (_currentModel = ((MvcHandler) HttpContext.Current.Handler).RequestContext.RouteData.GetCurrentModel<IPageModel>() ?? RootModel);
             }
         }
         private IPageModel _currentModel;

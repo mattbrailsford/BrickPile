@@ -22,18 +22,26 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using Elmah;
+using Raven.Client;
+using StructureMap;
+using BrickPile.UI.Models;
 
 namespace BrickPile.UI {
     /// <summary>
     /// 
     /// </summary>
     public class HandleErrorWithElmahAttribute : HandleErrorAttribute {
+        private readonly IDocumentSession _session;
         /// <summary>
         /// Called when [exception].
         /// </summary>
         /// <param name="context">The context.</param>
         public override void OnException(ExceptionContext context) {
             base.OnException(context);
+
+            //if (HasConfiguration()) {
+            //    context.RequestContext.HttpContext.Response.Redirect("foo");
+            //}
 
             var e = context.Exception;
             if (!context.ExceptionHandled   // if unhandled, will be logged anyhow
@@ -76,12 +84,28 @@ namespace BrickPile.UI {
             return config.Assertion.Test(testContext);
         }
         /// <summary>
+        /// Determines whether this instance has configuration.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance has configuration; otherwise, <c>false</c>.
+        /// </returns>
+        private bool HasConfiguration() {
+            var settings = _session.Load<Settings>("brickpile/settings");
+            return settings == null;
+        }
+        /// <summary>
         /// Logs the exception.
         /// </summary>
         /// <param name="e">The e.</param>
         private static void LogException(Exception e) {
             var context = HttpContext.Current;
             ErrorLog.GetDefault(context).Log(new Elmah.Error(e, context));
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HandleErrorWithElmahAttribute"/> class.
+        /// </summary>
+        public HandleErrorWithElmahAttribute() {
+            _session = ObjectFactory.GetInstance<IDocumentSession>();
         }
     }
 }

@@ -38,9 +38,16 @@ namespace BrickPile.UI {
 
             ViewEngines.Engines.Add(new RazorViewEngine
                                         {
-                                            AreaPartialViewLocationFormats = new[] { "~/Areas/BrickPile.UI/Views/{1}/{0}.cshtml", "~/Areas/BrickPile.UI/Views/Shared/{0}.cshtml" },
-                                            AreaMasterLocationFormats = new[] { "~/Areas/BrickPile.UI/Views/{1}/{0}.cshtml" },
-                                            AreaViewLocationFormats = new[] { "~/Areas/BrickPile.UI/Views/{1}/{0}.cshtml" }
+                                            AreaPartialViewLocationFormats =
+                                                new[]
+                                                    {
+                                                        "~/Areas/BrickPile.UI/Views/{1}/{0}.cshtml",
+                                                        "~/Areas/BrickPile.UI/Views/Shared/{0}.cshtml"
+                                                    },
+                                            AreaMasterLocationFormats =
+                                                new[] {"~/Areas/BrickPile.UI/Views/{1}/{0}.cshtml"},
+                                            AreaViewLocationFormats =
+                                                new[] {"~/Areas/BrickPile.UI/Views/{1}/{0}.cshtml"}
                                         });
 
             var dashboardRoute = new ContentRoute(

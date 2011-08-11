@@ -1,12 +1,17 @@
 ﻿
-@model BrickPile.Sample.ViewModels.HomeViewModel
+@model BrickPile.UI.Web.ViewModels.DefaultViewModel<BrickPile.Sample.Models.Home>
+@using PagedList.Mvc           
 @using BrickPile.UI.Common
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="push">
-	<a href="@Url.Action("index",new { model = Model.MainTeaser })")>
-        <img src="@Model.CurrentModel.MainTeaser.Image" alt="@Model.CurrentModel.MainTeaser.ImageAlt" />
-    </a>
-</div>
+<h2>List of Pages</h2>
+<ul>
+    @foreach (var product in ViewBag.OnePageOfPages) {
+        <li>@product.Metadata.Name</li>
+    }
+</ul>
+
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+@Html.PagedListPager((PagedList.IPagedList)ViewBag.OnePageOfPages, page => Url.Action("index", new { model = Model.CurrentModel, page = page }), PagedListRenderOptions.PageNumbersOnly)

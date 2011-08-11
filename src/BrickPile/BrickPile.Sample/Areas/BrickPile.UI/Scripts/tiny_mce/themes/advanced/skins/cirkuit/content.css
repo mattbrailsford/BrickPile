@@ -33,7 +33,7 @@ scrollbar-track-color:#F5F5F5;
 img:-moz-broken {-moz-force-broken-image-icon:1; width:24px; height:24px}
 font[face=mceinline] {font-family:inherit !important}*/
 body, td, pre {color:#000; font: 12px/1.5em "Lucida Grande", Helvetica, Arial, sans-serif; margin:8px;}
-html,body {padding: 0 !important; margin: 0 !important; background:#fff !important;}
+html,body {padding: 0 !important; margin: 0 !important; background: transparent !important;}
 body {height: 94% !important; padding: 0 !important;}
 body.mceForceColors {background:#FFF; color:#000;}
 h1 {font-size: 2em}

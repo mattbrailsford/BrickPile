@@ -47,13 +47,6 @@ namespace BrickPile.Domain.Models {
         /// </value>
         public virtual DocumentReference<IPageModel> Parent { get; set; }
         /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        /// <value>
-        /// The sort order.
-        /// </value>
-        public virtual int? SortOrder { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="PageModel"/> class.
         /// </summary>
         protected PageModel() {

@@ -37,7 +37,7 @@ namespace BrickPile.UI.Models {
         /// <value>
         /// The name.
         /// </value>
-        [Required]
+        //[Required]
         [Display(Prompt = "My awesome page")]
         public string Name { get; set; }
         /// <summary>
@@ -46,7 +46,7 @@ namespace BrickPile.UI.Models {
         /// <value>
         /// The slug.
         /// </value>
-        [Required]
+        //[Required]
         [Display(Prompt = "my-awesome-page")]
         public string Slug { get; set; }
         /// <summary>
@@ -55,7 +55,7 @@ namespace BrickPile.UI.Models {
         /// <value>
         /// The URL.
         /// </value>
-        [Required]
+        //[Required]
         public string Url { get; set; }
         /// <summary>
         /// Gets or sets the back action.
@@ -78,6 +78,7 @@ namespace BrickPile.UI.Models {
         /// The selected page model.
         /// </value>
         [ScaffoldColumn(false)]
+        [Required(ErrorMessage = "Test Error")]
         public string SelectedPageModel { get; set; }
         /// <summary>
         /// Gets the available models.

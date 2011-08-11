@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using BrickPile.UI;
 
 namespace BrickPile.Sample {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -8,6 +9,7 @@ namespace BrickPile.Sample {
     public class MvcApplication : System.Web.HttpApplication {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new HandleErrorWithElmahAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes) {

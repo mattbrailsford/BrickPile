@@ -20,7 +20,10 @@ THE SOFTWARE. */
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -41,7 +44,6 @@ namespace BrickPile.UI.Common {
         public static IEnumerable<HierarchyNode<TEntity>> CreateHierarchy<TEntity>(this IEnumerable<TEntity> allItems, TEntity rootPage, int depth) where TEntity : IPageModel {
             var childs = allItems.Where(x => x.Parent.Id.Equals(rootPage.Id));
             if (childs.Count() > 0) {
-                childs.OrderByDescending(x => x.SortOrder);
                 depth++;
                 foreach (var item in childs)
                     yield return new HierarchyNode<TEntity>
@@ -163,5 +165,41 @@ namespace BrickPile.UI.Common {
 
             return attribute;
         }
+        public static IDictionary<string, string> ToDictionary(this NameValueCollection source) {
+            return source.Cast<string>().Select(s => new { Key = s, Value = source[s] }).ToDictionary(p => p.Key, p => p.Value);
+        }
+        /// <summary>
+        /// Radioes the button for select list.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="listOfValues">The list of values.</param>
+        /// <returns></returns>
+        public static MvcHtmlString RadioButtonForSelectList<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> listOfValues) {
+            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            var sb = new StringBuilder();
+            if (listOfValues != null) {
+                foreach (SelectListItem item in listOfValues) {
+                    var id = string.Format(
+                        "{0}_{1}",
+                        metaData.PropertyName,
+                        item.Value
+                    );
+
+                    var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id }).ToHtmlString();
+                    sb.AppendFormat(
+                        "<label for=\"{0}\">{2} {1}</label>",
+                        id,
+                        HttpUtility.HtmlEncode(item.Text),
+                        radio
+                    );
+                }
+            }
+
+            return MvcHtmlString.Create(sb.ToString());
+        }
+
     }
 }

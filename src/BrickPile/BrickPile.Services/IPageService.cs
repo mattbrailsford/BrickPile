@@ -42,6 +42,12 @@ namespace BrickPile.Services {
         /// <returns></returns>
         IEnumerable<T> List<T>();
         /// <summary>
+        /// Gets the children.
+        /// </summary>
+        /// <param name="parent">The parent.</param>
+        /// <returns></returns>
+        IEnumerable<IPageModel> GetChildren(IPageModel parent);
+        /// <summary>
         /// Stores the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>

@@ -2,18 +2,11 @@
 using BrickPile.Domain;
 
 namespace BrickPile.Sample.Models {
-    /// <summary>
-    /// A common article page
-    /// </summary>
-    [PageModel("Articel")]
+    [PageModel("Artikel")]
     public class Page : BaseEditorial {
-        /// <summary>
-        /// Gets or sets the image caption.
-        /// </summary>
-        /// <value>
-        /// The image caption.
-        /// </value>
+
         [DataType(DataType.Html)]
         public string ImageCaption { get; set; }
+
     }
 }
